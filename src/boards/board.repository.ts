@@ -33,4 +33,22 @@ export class BoardRepository extends Repository<Board> {
 
     return board;
   }
+
+  async deleteBoard(id: number): Promise<boolean> {
+    const result = await this.delete({id: id});
+
+    if (result.affected === 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  async updateBoardStatus(board: Board): Promise<Board> {
+    return await this.save(board);
+  }
+
+  async getAllBoards(): Promise<Board[]> {
+    return await this.find();
+  }
 }
